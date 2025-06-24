@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+
+@layer utilities {
+  .font-drunkman {
+    font-family: 'Pacifico', cursive;
+  }
+
+  .text-shimmer {
+    background: linear-gradient(90deg, #facc15, white, #facc15);
+    background-size: 200% auto;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: shimmer 3s linear infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  }
+
+  .emoji-glow {
+    animation: glow 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes glow {
+    0% {
+      text-shadow: 0 0 5px #facc15, 0 0 10px #facc15;
+    }
+    100% {
+      text-shadow: 0 0 20px #fff176, 0 0 40px #facc15;
+    }
+  }
+}
+
+@layer components {
+  .bubble {
+    position: absolute;
+    bottom: -50px; /* induljon a képernyő alatt */
+    border-radius: 9999px;
+    aspect-ratio: 1 / 1; /* fix kör forma */
+    background: radial-gradient(circle at center, rgba(255, 200, 0, 0.3) 30%, rgba(100, 50, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 230, 150, 0.6);
+    box-shadow: 0 0 4px rgba(255, 200, 0, 0.4);
+    animation: rise 12s infinite ease-in;
+    opacity: 0.7;
+    backdrop-filter: blur(1px);
+    pointer-events: none;
+  }
+
+  @keyframes rise {
+    0% {
+      transform: translateY(0) scale(0.8);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-130vh) scale(1);
+      opacity: 0;
+    }
+  }
+}
+
+
+@layer components {
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.4s ease;
+  }
+  .fade-enter-from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  .fade-enter-to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .fade-leave-from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .fade-leave-to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@layer utilities {
+  .slot-frame {
+    animation: flash 0.3s alternate infinite;
+  }
+
+  @keyframes flash {
+    from { background-color: #facc15; }
+    to { background-color: #fff9c4; }
+  }
+}
+
+
