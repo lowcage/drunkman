@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import PlayerInput from './components/PlayerInput.vue'
 import GameBoard from './components/GameBoard.vue'
 import SlotMachine from './components/SlotMachine.vue'
-import PathEditor from "./components/PathEditor.vue";
 
 const started = ref(false)
 const players = ref([])

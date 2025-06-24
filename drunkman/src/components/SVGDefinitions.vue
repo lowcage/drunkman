@@ -104,5 +104,14 @@
       <stop offset="60%" stop-color="#0080ff"/>
       <stop offset="100%" stop-color="#8000ff"/>
     </radialGradient>
+
+    <!-- Inner circle metallic gradient -->
+    <radialGradient id="arrowBackgroundGradient" cx="30%" cy="30%">
+      <stop offset="0%" stop-color="#d8e3d8"/>
+      <stop offset="50%" stop-color="#a1b5a2"/>
+      <stop offset="100%" stop-color="#728573"/>
+    </radialGradient>
   </defs>
 </template>
+<script setup>
+</script>

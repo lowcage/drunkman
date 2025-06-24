@@ -1,55 +1,65 @@
 <script setup>
-import { computed, ref, onMounted, watch, defineExpose } from 'vue'
+import {computed, ref, watch, defineEmits, defineProps} from 'vue'
 import NormalTile from './NormalTile.vue'
 import SkullTile from './SkullTile.vue'
 import ChestTile from './ChestTile.vue'
 import ResetTile from './ResetTile.vue'
 
+/* ---------- props ---------- */
 const props = defineProps({
-  tile: { type: Object, required: true },
-  size: { type: Number, required: true },
-  spacing: { type: Number, default: 1 }
+  tile: {type: Object, required: true},
+  size: {type: Number, required: true},
+  spacing: {type: Number, default: 1},
+  active: {type: Boolean, default: false}     // 👈 NEW
 })
 
-// Map tile types to components
-const tileComponents = {
-  normal: NormalTile,
-  skull: SkullTile,
-  chest: ChestTile,
-  reset: ResetTile
-}
+/* ---------- emit skeleton events upward ---------- */
+const emit = defineEmits(['skull-landed', 'reset-triggered'])
 
-const tileComponent = computed(() => tileComponents[props.tile.type] || NormalTile)
-
+/* ---------- SVG positioning ---------- */
 const transform = computed(() => {
   const x = props.tile.x + props.size / 2 + props.spacing / 2
   const y = props.tile.y + props.size / 2 + props.spacing / 2
   return `translate(${x}, ${y})`
 })
 
-const resetTileRef = ref(null)
-
-defineExpose({
-  playResetAnimation: () => {
-    resetTileRef.value?.playResetAnimation?.()
-  }
-})
+/* ---------- watch `active` to relay events ---------- */
+watch(
+    () => props.active,
+    (isActive) => {
+      if (!isActive) return
+      if (props.tile.type === 'skull') emit('skull-landed', props.tile)
+      if (props.tile.type === 'reset') emit('reset-triggered', props.tile)
+    }
+)
 </script>
 
 <template>
   <g :transform="transform" class="game-tile">
-    <component
-        :is="tileComponent"
-        :tile="tile"
-        :size="size"
+    <ResetTile
         v-if="tile.type === 'reset'"
-        ref="resetTileRef"
-    />
-    <component
-        :is="tileComponent"
         :tile="tile"
         :size="size"
+        :active="active"
+    />
+
+    <SkullTile
+        v-else-if="tile.type === 'skull'"
+        :tile="tile"
+        :size="size"
+        :active="active"
+    />
+
+    <ChestTile
+        v-else-if="tile.type === 'chest'"
+        :tile="tile"
+        :size="size"
+    />
+
+    <NormalTile
         v-else
+        :tile="tile"
+        :size="size"
     />
   </g>
 </template>
