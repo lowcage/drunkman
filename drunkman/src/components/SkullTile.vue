@@ -20,7 +20,7 @@ function playProhibitionAnimation() {
   dashOffset.value = lineLength.value
 
   const start = performance.now()
-  const duration = 600          // ms
+  const duration = 1000          // ms
 
   function step(now) {
     const t = Math.min((now - start) / duration, 1)

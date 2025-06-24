@@ -73,6 +73,14 @@ function triggerResetAnimation() {
   })
 }
 
+function triggerChestAnimation() {
+  playerPos.value = -1
+  nextTick(() => {
+    playerPos.value = tiles.findIndex(t => t.id === 7) // id 54
+  })
+}
+
+
 /* ---- optional handlers for child events -------------------------- */
 function handleSkullLanded(tile) {
   console.log('🚫 landed on skull tile', tile.id)
@@ -116,6 +124,12 @@ function handleResetTriggered(tile) {
         class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
     >
       🔄 Test reset
+    </button>
+    <button
+        @click="triggerChestAnimation"
+        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+    >
+      🔄 Test chest
     </button>
   </div>
 </template>

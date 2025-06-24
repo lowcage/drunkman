@@ -54,6 +54,7 @@ watch(
         v-else-if="tile.type === 'chest'"
         :tile="tile"
         :size="size"
+        :active="active"
     />
 
     <NormalTile
